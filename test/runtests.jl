@@ -1,6 +1,7 @@
 using CFD2d
 using Test
 
-@testset "CFD2d.jl" begin
+@testset "setting" begin
     # Write your tests here.
+    include("setting.jl")
 end
