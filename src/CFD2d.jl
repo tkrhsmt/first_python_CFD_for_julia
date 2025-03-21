@@ -1,6 +1,9 @@
 module CFD2d
 
-# Write your package code here.
+# パラメータの設定
 include("Parameter.jl")
+
+# 流れ場の設定
+include("Field.jl")
 
 end

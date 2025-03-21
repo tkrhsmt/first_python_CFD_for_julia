@@ -8,11 +8,11 @@ struct Parameter
     PFIX_BC :: Int64
     #速度固定境界
     VFIX_BC :: Int64
-    #壁面滑りなし境界
+    #壁面滑りなし境界（速度）
     WALL_BC :: Int64
-    #壁面滑りあり境界
+    #壁面滑りなし境界（圧力）
     ONWALL_BC :: Int64
-    #周期境界
+    #孤立境界
     ISOLATED_BC :: Int64
 
     # --- 流れ場定数 --- #
@@ -87,9 +87,9 @@ struct Field
     bc_v :: Array{Int64, 2}
     bc_p :: Array{Int64, 2}
 
-    ref_u :: Array{Int64, 2}
-    ref_v :: Array{Int64, 2}
-    ref_p :: Array{Int64, 2}
+    ref_u :: Array{Vector{Int64}, 2}
+    ref_v :: Array{Vector{Int64}, 2}
+    ref_p :: Array{Vector{Int64}, 2}
 
     function Field(param :: Parameter)
 
@@ -101,9 +101,9 @@ struct Field
         bc_v = zeros(Int64, param.n[1], param.n[2] + 1)
         bc_p = zeros(Int64, param.n[1], param.n[2])
 
-        ref_u = zeros(Int64, param.n[1] + 1, param.n[2])
-        ref_v = zeros(Int64, param.n[1], param.n[2] + 1)
-        ref_p = zeros(Int64, param.n[1], param.n[2])
+        ref_u = fill(zeros(Int64, 2), param.n[1] + 1, param.n[2])
+        ref_v = fill(zeros(Int64, 2), param.n[1], param.n[2] + 1)
+        ref_p = fill(zeros(Int64, 2), param.n[1], param.n[2])
 
         return new(u, v, p, bc_u, bc_v, bc_p, ref_u, ref_v, ref_p)
     end
