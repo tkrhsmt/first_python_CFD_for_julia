@@ -8,9 +8,9 @@ struct Parameter
     PFIX_BC :: Int64
     #速度固定境界
     VFIX_BC :: Int64
-    #壁面滑りなし境界（速度）
+    #壁面滑りなし境界（壁内部）
     WALL_BC :: Int64
-    #壁面滑りなし境界（圧力）
+    #壁面滑りなし境界（壁表面）
     ONWALL_BC :: Int64
     #孤立境界
     ISOLATED_BC :: Int64
@@ -93,18 +93,34 @@ struct Field
 
     function Field(param :: Parameter)
 
-        u = zeros(Float64, param.n[1] + 1, param.n[2])
-        v = zeros(Float64, param.n[1], param.n[2] + 1)
+        u = zeros(Float64, param.n[1], param.n[2])
+        v = zeros(Float64, param.n[1], param.n[2])
         p = zeros(Float64, param.n[1], param.n[2])
 
-        bc_u = zeros(Int64, param.n[1] + 1, param.n[2])
-        bc_v = zeros(Int64, param.n[1], param.n[2] + 1)
-        bc_p = zeros(Int64, param.n[1], param.n[2])
+        bc_u = ones(Int64, param.n[1], param.n[2]) * param.LIQUID
+        bc_v = ones(Int64, param.n[1], param.n[2]) * param.LIQUID
+        bc_p = ones(Int64, param.n[1], param.n[2]) * param.LIQUID
 
-        ref_u = fill(zeros(Int64, 2), param.n[1] + 1, param.n[2])
-        ref_v = fill(zeros(Int64, 2), param.n[1], param.n[2] + 1)
-        ref_p = fill(zeros(Int64, 2), param.n[1], param.n[2])
+        ref_u = fill([-1, -1], param.n[1], param.n[2])
+        ref_v = fill([-1, -1], param.n[1], param.n[2])
+        ref_p = fill([-1, -1], param.n[1], param.n[2])
 
         return new(u, v, p, bc_u, bc_v, bc_p, ref_u, ref_v, ref_p)
+    end
+end
+
+struct Scheme
+
+    interpolation :: String
+    spatial_differential  :: String
+    time_differential :: String
+
+    function Scheme(
+        interpolation :: String = "first_order",
+        spatial_differential :: String = "first_order",
+        time_differential :: String = "first_order"
+    )
+
+        return new(interpolation, spatial_differential, time_differential)
     end
 end

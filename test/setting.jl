@@ -19,12 +19,12 @@ param = CFD2d.Parameter(64, 64, 2π, 2π, 1000.0, 10.0, 0.01)
 
 field = CFD2d.Field(param)
 
-@test field.u == zeros(Float64, 65, 64)
-@test field.v == zeros(Float64, 64, 65)
+@test field.u == zeros(Float64, 64, 64)
+@test field.v == zeros(Float64, 64, 64)
 @test field.p == zeros(Float64, 64, 64)
-@test field.bc_u == zeros(Int64, 65, 64)
-@test field.bc_v == zeros(Int64, 64, 65)
-@test field.bc_p == zeros(Int64, 64, 64)
-@test field.ref_u == fill(zeros(Int64, 2), 65, 64)
-@test field.ref_v == fill(zeros(Int64, 2), 64, 65)
-@test field.ref_p == fill(zeros(Int64, 2), 64, 64)
+@test field.bc_u == ones(Int64, 64, 64) * param.LIQUID
+@test field.bc_v == ones(Int64, 64, 64) * param.LIQUID
+@test field.bc_p == ones(Int64, 64, 64) * param.LIQUID
+@test field.ref_u == fill([-1, -1], 64, 64)
+@test field.ref_v == fill([-1, -1], 64, 64)
+@test field.ref_p == fill([-1, -1], 64, 64)
