@@ -28,6 +28,9 @@ struct Parameter
     Δx :: Float64
     Δy :: Float64
 
+    x :: Array{Float64, 1}
+    y :: Array{Float64, 1}
+
     function Parameter(
         nx :: Int64,
         ny :: Int64,
@@ -53,6 +56,9 @@ struct Parameter
         Δx = Lx / nx
         Δy = Ly / ny
 
+        x = range(0, stop=Lx, length=nx)
+        y = range(0, stop=Ly, length=ny)
+
         println("--------------------------------------------------")
         println("                     流体定数")
         println("LIQUID: $LIQUID")
@@ -72,7 +78,7 @@ struct Parameter
         println("Δy: $Δy")
         println("--------------------------------------------------")
 
-        return new(LIQUID, PFIX_BC, VFIX_BC, WALL_BC, ONWALL_BC, ISOLATED_BC, n, L, ρ, ν, Δt, Δx, Δy)
+        return new(LIQUID, PFIX_BC, VFIX_BC, WALL_BC, ONWALL_BC, ISOLATED_BC, n, L, ρ, ν, Δt, Δx, Δy, x, y)
     end
 
 end
@@ -89,12 +95,12 @@ struct Field
 
     function Field(param :: Parameter)
 
-        u = zeros(Float64, param.n[1] + 1, param.n[2])
-        v = zeros(Float64, param.n[1], param.n[2] + 1)
+        u = zeros(Float64, param.n[1], param.n[2])
+        v = zeros(Float64, param.n[1], param.n[2])
         p = zeros(Float64, param.n[1], param.n[2])
 
-        bc_u = zeros(Int64, param.n[1] + 1, param.n[2])
-        bc_v = zeros(Int64, param.n[1], param.n[2] + 1)
+        bc_u = zeros(Int64, param.n[1], param.n[2])
+        bc_v = zeros(Int64, param.n[1], param.n[2])
         bc_p = zeros(Int64, param.n[1], param.n[2])
 
         return new(u, v, p, bc_u, bc_v, bc_p)

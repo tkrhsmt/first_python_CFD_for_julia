@@ -1,6 +1,7 @@
 module CFD2d
 
-# Write your package code here.
+
 include("Parameter.jl")
+include("Show.jl")
 
 end

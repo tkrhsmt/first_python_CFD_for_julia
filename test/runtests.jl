@@ -5,3 +5,8 @@ using Test
     # Write your tests here.
     include("setting.jl")
 end
+
+@testset "show" begin
+    # Write your tests here.
+    include("show.jl")
+end
