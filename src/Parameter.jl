@@ -93,6 +93,12 @@ struct Field
     bc_v :: Array{Int64, 2}
     bc_p :: Array{Int64, 2}
 
+    ref_u :: Matrix{Vector{Int64}}
+    ref_v :: Matrix{Vector{Int64}}
+    ref_p :: Matrix{Vector{Int64}}
+
+    ∇u :: Array{Float64, 2}
+
     function Field(param :: Parameter)
 
         u = zeros(Float64, param.n[1], param.n[2])
@@ -103,6 +109,14 @@ struct Field
         bc_v = zeros(Int64, param.n[1], param.n[2])
         bc_p = zeros(Int64, param.n[1], param.n[2])
 
-        return new(u, v, p, bc_u, bc_v, bc_p)
+        ref_u = fill([-1, -1], param.n[1], param.n[2])
+        ref_v = fill([-1, -1], param.n[1], param.n[2])
+        ref_p = fill([-1, -1], param.n[1], param.n[2])
+
+        ∇u = zeros(Float64, param.n[1], param.n[2])
+
+        return new(u, v, p, bc_u, bc_v, bc_p, ref_u, ref_v, ref_p, ∇u)
     end
 end
+
+abstract type AbstractFlow end

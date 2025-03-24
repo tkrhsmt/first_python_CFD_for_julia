@@ -19,6 +19,7 @@ function array_min_max(ϕ, message :: String, fminn, fmaxx, param:: Parameter)
     println("- - - - - - - - - -")
 
     buf = fill("", param.n[1])
+    mem = []
 
     for j in 1:param.n[2]
         for i in 1:param.n[1]
@@ -38,7 +39,10 @@ function array_min_max(ϕ, message :: String, fminn, fmaxx, param:: Parameter)
 
         b = join(buf, "")
         println("$j:\t$b")
+        push!(mem, b)
     end
 
     println("--------------------------------------------------")
+
+    return mem
 end
