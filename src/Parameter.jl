@@ -53,8 +53,8 @@ struct Parameter
 
         ν = μ / ρ
 
-        Δx = Lx / nx
-        Δy = Ly / ny
+        Δx = Lx / (nx - 1)
+        Δy = Ly / (ny - 1)
 
         x = range(0, stop=Lx, length=nx)
         y = range(0, stop=Ly, length=ny)
@@ -97,6 +97,10 @@ struct Field
     ref_v :: Matrix{Vector{Int64}}
     ref_p :: Matrix{Vector{Int64}}
 
+    Δu :: Array{Float64, 2}
+    Δv :: Array{Float64, 2}
+    Δp :: Array{Float64, 2}
+
     ∇u :: Array{Float64, 2}
 
     function Field(param :: Parameter)
@@ -113,9 +117,13 @@ struct Field
         ref_v = fill([-1, -1], param.n[1], param.n[2])
         ref_p = fill([-1, -1], param.n[1], param.n[2])
 
+        Δu = zeros(Float64, param.n[1], param.n[2])
+        Δv = zeros(Float64, param.n[1], param.n[2])
+        Δp = zeros(Float64, param.n[1], param.n[2])
+
         ∇u = zeros(Float64, param.n[1], param.n[2])
 
-        return new(u, v, p, bc_u, bc_v, bc_p, ref_u, ref_v, ref_p, ∇u)
+        return new(u, v, p, bc_u, bc_v, bc_p, ref_u, ref_v, ref_p, Δu, Δv, Δp, ∇u)
     end
 end
 

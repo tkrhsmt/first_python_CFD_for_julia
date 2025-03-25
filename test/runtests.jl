@@ -12,3 +12,7 @@ end
 @testset "setup" begin
     include("setup.jl")
 end
+
+@testset "navpress" begin
+    include("navpress.jl")
+end

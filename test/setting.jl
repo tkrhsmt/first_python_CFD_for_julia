@@ -13,8 +13,8 @@ param = CFD2d.Parameter(64, 64, 2π, 2π, 1000.0, 10.0, 0.01)
 @test param.ρ == 1000
 @test param.ν == 0.01
 @test param.Δt == 0.01
-@test param.Δx == 2π / 64
-@test param.Δy == 2π / 64
+@test param.Δx == 2π / 63
+@test param.Δy == 2π / 63
 @test param.x == range(0, stop=2π, length=64)
 @test param.y == range(0, stop=2π, length=64)
 
