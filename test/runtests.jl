@@ -16,3 +16,7 @@ end
 @testset "navpress" begin
     include("navpress.jl")
 end
+
+@testset "navD" begin
+    include("navD.jl")
+end
