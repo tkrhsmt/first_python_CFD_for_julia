@@ -65,6 +65,12 @@ function set_code_vel_u!(
                     bc1 = param.ONWALL_BC
                 end
                 field.bc_u[i, j] = bc1
+            else
+                if bc0 == param.VFIX_BC && bc1 == param.WALL_BC
+                    field.bc_u[i, j] = param.ONWALL_BC
+                else
+                    #field.bc_u[i, j] = param.ISOLATED_BC
+                end
             end
         end
     end
@@ -92,6 +98,12 @@ function set_code_vel_v!(
                     bc1 = param.ONWALL_BC
                 end
                 field.bc_v[i, j] = bc1
+            else
+                if bc0 == param.VFIX_BC && bc1 == param.WALL_BC
+                    field.bc_v[i, j] = param.ONWALL_BC
+                else
+                    #field.bc_v[i, j] = param.ISOLATED_BC
+                end
             end
         end
     end
