@@ -20,3 +20,7 @@ end
 @testset "navD" begin
     include("navD.jl")
 end
+
+@testset "channel" begin
+    include("channel.jl")
+end

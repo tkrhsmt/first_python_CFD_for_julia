@@ -32,8 +32,8 @@ function check_stability(
 )
     for j in 1:param.n[2]
         for i in 1:param.n[1]
-            tmp1 = param.u[i, j] * param.Δt / param.Δx
-            tmp2 = param.v[i, j] * param.Δt / param.Δx
+            tmp1 = field.u[i, j] * param.Δt / param.Δx
+            tmp2 = field.v[i, j] * param.Δt / param.Δx
             courant = maximum([tmp1, tmp2])
             if courant >= 0.5
                 println("CFL条件を満たしていません")

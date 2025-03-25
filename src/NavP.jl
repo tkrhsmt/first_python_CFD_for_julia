@@ -51,10 +51,6 @@ function solve_poisson!(
                     tmp = field.ref_p[i, j]
                     field.Δp[i, j] = field.Δp[tmp[1], tmp[2]]
 
-                elseif field.bc_p[i, j] == param.PFIX_BC
-
-                    field.Δp[i, j] = 0.0
-
                 end
 
             end

@@ -6,7 +6,7 @@ function modify_velocity!(
     field.u .+= field.Δu
     field.v .+= field.Δv
     set_velocity_bc!(param, field.u, field.bc_u, field.ref_u)
-    set_velocity_bc!(param, field.u, field.bc_v, field.ref_v)
+    set_velocity_bc!(param, field.v, field.bc_v, field.ref_v)
 end
 
 function set_velocity_bc!(
